@@ -4,13 +4,50 @@
 
 package todolist.aplicativo.model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author ruben
  */
+
 public class Tarefa {
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+private long id;
+    private String titulo;
+    private String descricao;
+    private boolean completa;
+    private LocalDate dataAgora = LocalDate.now();
+    
+    public Tarefa(long id, String titulo, String descricao, boolean completa, LocalDate dataAgora) {
+        this.Id = id;
+        this.Titulo = titulo;
+        this.Descricao = descricao;
+        this.Completa = false;
+        this.DataAgora = dataAgora;
+    }
+    
+    public String getTitulo() {
+    	return titulo;
+    }
+    
+    public String getDescricao() {
+    	return descricao;
+    }
+    
+    public boolean getComplete() {
+    	return completa;
+    }
+    
+    public LocalDate getDataAgora() {
+    	return dataAgora;
+    }
+
+    public String getListarTarefa(String titulo, String descricao) {
+        this(titulo, descricao);
+    }
+
+    public void completar(boolean Completa){
+        this.Completa = true;
     }
 }
