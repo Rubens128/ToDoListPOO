@@ -38,7 +38,10 @@ private long id;
         this.dataCriacao = LocalDate.now();
     }
     /* so para teste */
-    
+    public long getID() {
+        return id;
+    }
+
     public String getTitulo() {
     	return titulo;
     }
