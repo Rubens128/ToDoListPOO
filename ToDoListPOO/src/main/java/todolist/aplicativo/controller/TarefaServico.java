@@ -13,6 +13,16 @@ import java.time.format.DateTimeFormatter;
  * @author ruben
  */
 public class TarefaServico {
+    
+    public static boolean verificarID(ArrayList<Tarefa> tarefas, int id) {
+        
+        if (tarefas.isEmpty()) return false;
+    
+        for (Tarefa tarefa : tarefas) if (tarefa.getID() == id) return true;         
+        
+        return false;
+    }
+    
     public static void criar(ArrayList<Tarefa> lista, String titulo, String descricao, int id){
         
         Tarefa novaTarefa = new Tarefa(titulo, descricao);
@@ -54,7 +64,7 @@ public class TarefaServico {
             
                 if(!novoTitulo.trim().equals("0")) tarefa.setTitulo(novoTitulo);
                 if(!novaDescricao.trim().equals("0")) tarefa.setDescricao(novaDescricao);
-                if(novoStatus.trim().equals("0")) {
+                if(!novoStatus.trim().equals("0")) {
                     
                     if (novoStatus.equals("1")) tarefa.setCompletar(true);
                     else if (novoStatus.equals("2")) tarefa.setCompletar(false);
@@ -65,8 +75,8 @@ public class TarefaServico {
         }
     }
     
-    public static void remover(ArrayList<Tarefa> tarefas, Tarefa tarefa) {
-    
-        tarefas.remove(tarefa);
+    public static void remover(ArrayList<Tarefa> tarefas, int id) {
+        
+        tarefas.removeIf(t -> t.getID() == id);
     }
 }
