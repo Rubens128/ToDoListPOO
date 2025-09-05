@@ -17,15 +17,15 @@ public class Tarefa {
     private String titulo;
     private String descricao;
     private boolean completa;
-    private LocalDate dataAgora = LocalDate.now();
+    private LocalDate dataAgora;
     private LocalDate dataConclusao;
     
-    public Tarefa(long id, String titulo, String descricao, boolean completa, LocalDate dataAgora) {
+    public Tarefa(long id, String titulo, String descricao, boolean completa) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.completa = false;
-        this.dataAgora = dataAgora;
+        this.dataAgora = LocalDate.now();
         this.dataConclusao = null;
     }
     

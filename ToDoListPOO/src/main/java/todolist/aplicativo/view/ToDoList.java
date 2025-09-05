@@ -16,8 +16,9 @@ import todolist.aplicativo.controller.TarefaServico;
 public class ToDoList {
     public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
-    ArrayList<Tarefa> tarefas = new ArrayList<>();
-    int contadorID = 1;
+    
+    TarefaServico servico = new TarefaServico();
+    
     int escolha = 0;
     
     
@@ -27,8 +28,7 @@ public class ToDoList {
                            "2. Visualizar tarefas\n" +
                            "3. Editar tarefa\n" +
                            "4. Excluir tarefa\n" +
-                           "5. Marcar tarefa como concluida\n" +
-                           "6. Sair\n" +
+                           "5. Sair\n" +
                            "Digite o número correspondente à sua escolha: ");
         escolha = scan.nextInt();
         scan.nextLine();
@@ -40,28 +40,28 @@ public class ToDoList {
                 System.out.println("Insira a descrição da tarefa: ");
                 String descricao = scan.nextLine();
                 
-                TarefaServico.criar(tarefas, titulo, descricao, contadorID);
+                Tarefa novaTarefa = servico.criar(titulo, descricao);
                 
-                contadorID++;
-                
-                System.out.println("Tarefa adicionada com sucesso!");
+                System.out.printf("Tarefa adicionada com sucesso! Titulo: %s\n", novaTarefa.getTitulo());
                 
                 break;
             
             case 2:
                 System.out.println("\nTarefas Cadastradas:");
-                if (tarefas.isEmpty()) {
+                
+                ArrayList<String> registros = servico.listar();
+                
+                if (registros == null) {
                     System.out.println("Nenhuma tarefa encontrada.");
-                } else {
-                    ArrayList<String> registros = TarefaServico.listar(tarefas);
                     
+                } else {
+                  
                     for(String registro: registros){
                         
                         System.out.printf("%s", registro);
-                    
                     }
-                    
                 }
+                
                 break;
                 
             case 3:
@@ -72,7 +72,7 @@ public class ToDoList {
                 escolhaID = scan.nextInt();
                 scan.nextLine();
 
-                if(!TarefaServico.verificarID(tarefas, escolhaID)){
+                if(!servico.verificarID(escolhaID)){
                 
                     System.out.println("Tarefa não encontrada!");
                     break;
@@ -89,34 +89,32 @@ public class ToDoList {
                 System.out.println("\nNovo status (1 - Para concluida, 2 - Para não concluida): ");
                 String novoStatus = scan.nextLine();
                 
-                TarefaServico.atualizar(tarefas, escolhaID, novoTitulo, novaDescricao, novoStatus);
+                servico.atualizar(escolhaID, novoTitulo, novaDescricao, novoStatus);
   
                 break;
                 
             case 4:
-                if (tarefas.isEmpty()) {
-                    System.out.println("Nenhuma tarefa encontrada.");
-                    break;
-                }
                 
                 System.out.println("\nDigite o ID da tarefa que deseja excluir: ");
                 int excluirID = scan.nextInt();
                 scan.nextLine();
                 
-                if(!TarefaServico.verificarID(tarefas, excluirID)){
+                if(!servico.verificarID( excluirID)){
                 
                     System.out.println("Tarefa não encontrada!");
                     break;
                     
                 } else {
                     
-                    TarefaServico.remover(tarefas, excluirID);
+                    servico.remover( excluirID);
                     System.out.println("Tarefa removida com sucesso!");
                 }
 
                 break;
-            
+                
             case 5:
+                
+                //remover esse case 5 talvez, e trocar pelos os outros 2;
                   
                 System.out.println("\nDigite o ID da tarefa que deseja concluir: ");
                 int concluirID = scan.nextInt();
@@ -141,7 +139,7 @@ public class ToDoList {
                 }
   
                 break;
-                
+            
             case 6:
                 System.out.println("Saindo...");
                 

@@ -14,7 +14,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class TarefaServico {
     
-    public static boolean verificarID(ArrayList<Tarefa> tarefas, int id) {
+    ArrayList<Tarefa> tarefas = new ArrayList<>();
+    int contadorID = 1;
+    
+    public boolean verificarID(int id) {
         
         if (tarefas.isEmpty()) return false;
     
@@ -23,21 +26,25 @@ public class TarefaServico {
         return false;
     }
     
-    public static void criar(ArrayList<Tarefa> lista, String titulo, String descricao, int id){
+    public Tarefa criar(String titulo, String descricao){
         
-        Tarefa novaTarefa = new Tarefa(titulo, descricao);
+        Tarefa novaTarefa = new Tarefa(contadorID++, titulo, descricao, false);
         
-        novaTarefa.setID(id);
+        tarefas.add(novaTarefa);
         
-        lista.add(novaTarefa);
+        return novaTarefa;
         
     }
     
-    public static ArrayList<String> listar(ArrayList<Tarefa> lista){
+    public ArrayList<String> listar(){
+        
+        if(tarefas.isEmpty()){
+            return null;
+        }
         
         ArrayList<String> dadosTarefas = new ArrayList<>();
         
-        for(Tarefa item: lista){
+        for(Tarefa item: tarefas){
             
             DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             
@@ -55,8 +62,7 @@ public class TarefaServico {
         return dadosTarefas;
     }
     
-    public static void atualizar(ArrayList<Tarefa> tarefas, long ID, String
-    novoTitulo, String novaDescricao, String novoStatus){
+    public void atualizar(long ID, String novoTitulo, String novaDescricao, String novoStatus){
         
         for (Tarefa tarefa : tarefas) {
             
@@ -75,7 +81,7 @@ public class TarefaServico {
         }
     }
     
-    public static void remover(ArrayList<Tarefa> tarefas, int id) {
+    public void remover(int id) {
         
         tarefas.removeIf(t -> t.getID() == id);
     }
