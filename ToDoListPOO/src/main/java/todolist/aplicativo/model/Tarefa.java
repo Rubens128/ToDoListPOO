@@ -43,7 +43,7 @@ public class Tarefa {
         this.titulo = titulo;
         this.descricao = descricao;
         this.completa = false;
-        this.dataCriacao = LocalDate.now();
+        this.dataAgora = LocalDate.now();
         this.dataConclusao = null;
     }
 
