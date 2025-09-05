@@ -22,19 +22,22 @@ public class ToDoList {
     int escolha = 0;
     
     
-    while(escolha != 6) {
+    while(escolha != 7) {
         System.out.println("### ToDo List ###\n" +
                            "1. Cadastrar tarefa\n" +
-                           "2. Visualizar tarefas\n" +
+                           "2. Listar tarefas\n" +
                            "3. Editar tarefa\n" +
                            "4. Excluir tarefa\n" +
-                           "5. Sair\n" +
+                           "5. Pesquisar tarefa\n" +
+                           "6. Tarefas concluidas\n" +
+                           "7. Sair\n" +
                            "Digite o número correspondente à sua escolha: ");
         escolha = scan.nextInt();
         scan.nextLine();
     
         switch (escolha) {
             case 1:
+                System.out.println("###################################");
                 System.out.println("\nInsira o título da tarefa: ");
                 String titulo = scan.nextLine();
                 System.out.println("Insira a descrição da tarefa: ");
@@ -43,16 +46,18 @@ public class ToDoList {
                 Tarefa novaTarefa = servico.criar(titulo, descricao);
                 
                 System.out.printf("Tarefa adicionada com sucesso! Titulo: %s\n", novaTarefa.getTitulo());
+                System.out.println("###################################");
                 
                 break;
             
             case 2:
+                System.out.println("###################################");
                 System.out.println("\nTarefas Cadastradas:");
                 
                 ArrayList<String> registros = servico.listar();
                 
                 if (registros == null) {
-                    System.out.println("Nenhuma tarefa encontrada.");
+                    System.out.println("Nenhuma tarefa encontrada.\n");
                     
                 } else {
                   
@@ -62,19 +67,22 @@ public class ToDoList {
                     }
                 }
                 
+                System.out.println("###################################");
+
                 break;
                 
             case 3:
                 
                 int escolhaID = 0;
-
+                
+                System.out.println("###################################");
                 System.out.println("\nDigite o ID da tarefa que deseja editar: ");
                 escolhaID = scan.nextInt();
                 scan.nextLine();
 
                 if(!servico.verificarID(escolhaID)){
                 
-                    System.out.println("Tarefa não encontrada!");
+                    System.out.println("Tarefa não encontrada!\n");
                     break;
                 }
                 
@@ -90,63 +98,80 @@ public class ToDoList {
                 String novoStatus = scan.nextLine();
                 
                 servico.atualizar(escolhaID, novoTitulo, novaDescricao, novoStatus);
-  
+                System.out.println("###################################");
+
+                
                 break;
                 
             case 4:
-                
+                System.out.println("###################################");
                 System.out.println("\nDigite o ID da tarefa que deseja excluir: ");
                 int excluirID = scan.nextInt();
                 scan.nextLine();
                 
                 if(!servico.verificarID( excluirID)){
                 
-                    System.out.println("Tarefa não encontrada!");
+                    System.out.println("Tarefa não encontrada!\n");
                     break;
                     
                 } else {
                     
                     servico.remover( excluirID);
-                    System.out.println("Tarefa removida com sucesso!");
+                    System.out.println("Tarefa removida com sucesso!\n");
                 }
+                System.out.println("###################################");                
 
                 break;
                 
             case 5:
-                
-                //remover esse case 5 talvez, e trocar pelos os outros 2;
-                  
-                System.out.println("\nDigite o ID da tarefa que deseja concluir: ");
-                int concluirID = scan.nextInt();
+                System.out.println("###################################");
+                System.out.println("\nDigite o ID da tarefa que deseja pesquisar: ");
+                int pesquisarID = scan.nextInt();
                 scan.nextLine();
                 
-                if(!TarefaServico.verificarID(tarefas, concluirID)){
+                if(!servico.verificarID( pesquisarID)){
                 
-                    System.out.println("Tarefa não encontrada!");
+                    System.out.println("Tarefa não encontrada!\n");
                     break;
                     
                 } else {
-
-                    for(Tarefa tarefa : tarefas) {
-                        
-                        if (tarefa.getID() == concluirID) {
-                        
-                            tarefa.setCompletar(true);
-                            
-                            System.out.println("Tarefa concluida com sucesso!");
-                        }
-                    }          
+                    
+                    System.out.println("Tarefa encontrada com sucesso:");
+                    System.out.println(servico.exibir(pesquisarID));   
+                    
                 }
+                System.out.println("###################################");
   
                 break;
-            
+                
             case 6:
+                System.out.println("###################################");
+                System.out.println("\nTarefas Concluidas:");
+                
+                ArrayList<String> registrosConcluidas = servico.listarConcluidas();
+                
+                if (registrosConcluidas == null) {
+                    System.out.println("Nenhuma tarefa concluida.\n");
+                    
+                } else {
+                  
+                    for(String registro: registrosConcluidas){
+                        
+                        System.out.printf("%s", registro);
+                    }
+                }
+                
+                System.out.println("###################################");
+
+                break;
+            
+            case 7:
                 System.out.println("Saindo...");
                 
                 break;
                 
             default:
-                System.out.println("Opção inválida.");
+                System.out.println("Opção inválida.\n");
         }
     
     }
