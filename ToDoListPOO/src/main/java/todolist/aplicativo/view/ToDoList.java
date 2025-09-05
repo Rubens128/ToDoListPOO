@@ -7,13 +7,14 @@ package todolist.aplicativo.view;
 import todolist.aplicativo.model.Tarefa;
 import java.util.Scanner;
 import java.util.ArrayList;
+import todolist.aplicativo.controller.TarefaServico;
 
 /**
  *
  * @author ruben
  */
 public class ToDoList {
-    public static void toDoList() {
+    public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
     ArrayList<Tarefa> tarefas = new ArrayList<>();
     int contadorID = 1;
@@ -39,9 +40,10 @@ public class ToDoList {
                 System.out.println("Insira a descrição da tarefa: ");
                 String descricao = scan.nextLine();
                 
-                Tarefa novaTarefa = new Tarefa(titulo, descricao);
-                novaTarefa.setID(contadorID++);
-                tarefas.add(novaTarefa);
+                TarefaServico.criar(tarefas, titulo, descricao, contadorID);
+                
+                contadorID++;
+                
                 System.out.println("Tarefa adicionada com sucesso!");
                 
                 break;
@@ -51,9 +53,14 @@ public class ToDoList {
                 if (tarefas.isEmpty()) {
                     System.out.println("Nenhuma tarefa encontrada.");
                 } else {
-                    for (Tarefa tarefa : tarefas) {
-                        System.out.println(tarefa);
+                    ArrayList<String> registros = TarefaServico.listar(tarefas);
+                    
+                    for(String registro: registros){
+                        
+                        System.out.printf("%s", registro);
+                    
                     }
+                    
                 }
                 break;
                 
@@ -119,7 +126,7 @@ public class ToDoList {
                 for (Tarefa tarefa : tarefas) {
                         if (tarefa.getID() == concluirID) {
                         
-                            tarefa.completar();
+                            tarefa.setCompletar(true);
                             
                             System.out.println("Tarefa concluida com sucesso!");
                         }
