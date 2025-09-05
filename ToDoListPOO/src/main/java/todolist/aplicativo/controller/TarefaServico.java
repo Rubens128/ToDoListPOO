@@ -44,4 +44,29 @@ public class TarefaServico {
         
         return dadosTarefas;
     }
+    
+    public static void atualizar(ArrayList<Tarefa> tarefas, long ID, String
+    novoTitulo, String novaDescricao, String novoStatus){
+        
+        for (Tarefa tarefa : tarefas) {
+            
+            if(tarefa.getID() == ID) {
+            
+                if(!novoTitulo.trim().equals("0")) tarefa.setTitulo(novoTitulo);
+                if(!novaDescricao.trim().equals("0")) tarefa.setDescricao(novaDescricao);
+                if(novoStatus.trim().equals("0")) {
+                    
+                    if (novoStatus.equals("1")) tarefa.setCompletar(true);
+                    else if (novoStatus.equals("2")) tarefa.setCompletar(false);
+                }
+                
+                break;
+            }
+        }
+    }
+    
+    public static void remover(ArrayList<Tarefa> tarefas, Tarefa tarefa) {
+    
+        tarefas.remove(tarefa);
+    }
 }
