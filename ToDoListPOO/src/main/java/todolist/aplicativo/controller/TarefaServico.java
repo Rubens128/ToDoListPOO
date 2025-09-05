@@ -50,13 +50,43 @@ public class TarefaServico {
             
             String dadosDaTarefa = "\nID: " + item.getID() + "\n" + "Titulo: " + item.getTitulo() + "\n";
             dadosDaTarefa += "Descricao: "+ item.getDescricao() + "\n";
-            dadosDaTarefa += "Completado: "+(item.getComplete()? "Sim" : "Nao") + "\n";
+            dadosDaTarefa += "Completado: "+(item.isComplete()? "Sim" : "Nao") + "\n";
             dadosDaTarefa += "Data de Inicio: " + (item.getDataAgora().format(dataFormato)) + "\n";
             if(item.getDataConclusao() != null) dadosDaTarefa += "Data de Conclusao: " + (item.getDataConclusao().format(dataFormato)) + "\n\n";
             else dadosDaTarefa += "Data de Conclusao: Nao concluido \n\n";
                 
             dadosTarefas.add(dadosDaTarefa);
             
+        }
+        
+        return dadosTarefas;
+    }
+    
+    public ArrayList<String> listarConcluidas(){
+        
+        if(tarefas.isEmpty()){
+            return null;
+        }
+        
+        ArrayList<String> dadosTarefas = new ArrayList<>();
+        
+        for(Tarefa item: tarefas){
+            
+            DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            if (item.isComplete()) {
+                
+            String dadosDaTarefa = "\nID: " + item.getID() + "\n" + "Titulo: " + item.getTitulo() + "\n";
+            dadosDaTarefa += "Descricao: "+ item.getDescricao() + "\n";
+            dadosDaTarefa += "Data de Inicio: " + (item.getDataAgora().format(dataFormato)) + "\n";
+            dadosDaTarefa += "Data de Conclusao: " + (item.getDataConclusao().format(dataFormato)) + "\n\n";
+            
+            dadosTarefas.add(dadosDaTarefa);
+            }        
+        }
+        
+        if (dadosTarefas.isEmpty()) {
+        dadosTarefas.add("Não há tarefas concluidas.\n");
         }
         
         return dadosTarefas;
@@ -80,6 +110,27 @@ public class TarefaServico {
             }
         }
     }
+    
+    public String exibir(long ID){
+        String dadosDaTarefa = "";
+        
+        for (Tarefa item : tarefas) {
+            
+            
+            DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            if(item.getID() == ID) {
+                dadosDaTarefa = "\nID: " + item.getID() + "\n" + "Titulo: " + item.getTitulo() + "\n";
+                dadosDaTarefa += "Descricao: "+ item.getDescricao() + "\n";
+                dadosDaTarefa += "Completado: "+(item.isComplete()? "Sim" : "Nao") + "\n";
+                dadosDaTarefa += "Data de Inicio: " + (item.getDataAgora().format(dataFormato)) + "\n";
+                if(item.getDataConclusao() != null) dadosDaTarefa += "Data de Conclusao: " + (item.getDataConclusao().format(dataFormato)) + "\n\n";
+                else dadosDaTarefa += "Data de Conclusao: Nao concluido \n\n";
+            }  
+        }
+        return dadosDaTarefa;  
+    }
+    
     
     public void remover(int id) {
         
