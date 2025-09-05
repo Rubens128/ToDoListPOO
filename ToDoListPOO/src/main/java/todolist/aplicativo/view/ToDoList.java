@@ -65,29 +65,29 @@ public class ToDoList {
                 break;
                 
             case 3:
+                
+                if (tarefas.isEmpty()) {
+                    System.out.println("Nenhuma tarefa encontrada.");
+                    break;
+                }
+                 
                 System.out.println("\nDigite o ID da tarefa que deseja editar: ");
                 long escolhaID = scan.nextInt();
                 scan.nextLine();
                 
-                if (tarefas.isEmpty()) {
-                    System.out.println("Nenhuma tarefa encontrada.");
-                } else {
-                    for (Tarefa tarefa : tarefas) {
-                        if (tarefa.getID() == escolhaID) {
-                            System.out.println("Insira um novo título para a tarefa: ");
-                            String novoTitulo = scan.nextLine();
-                        
-                            System.out.println("Insira uma nova descrição para a tarefa: ");
-                            String novaDescricao = scan.nextLine();
-                        
-                            tarefa.setTitulo(novoTitulo);
-                            tarefa.setDescricao(novaDescricao);
-                            
-                            System.out.println("Tarefa editada com sucesso!");
-                        }
-                    }
-                }  
+                System.out.println("\nDIGITE 0 PARA OS ATRIBUTOS QUE NÃO DESEJA ALTERAR");
                 
+                System.out.println("\nNovo titulo: ");
+                String novoTitulo = scan.nextLine();
+                
+                System.out.println("\nNova descrição: ");
+                String novaDescricao = scan.nextLine();
+                
+                System.out.println("\nNovo status (1 - Para concluida, 2 - Para não concluida): ");
+                String novoStatus = scan.nextLine();
+                
+                TarefaServico.atualizar(tarefas, escolhaID, novoTitulo, novaDescricao, novoStatus);
+  
                 break;
                 
             case 4:
@@ -100,17 +100,21 @@ public class ToDoList {
                 long excluirID = scan.nextInt();
                 scan.nextLine();
                 
+                boolean removida = false;
+                
                 for (Tarefa tarefa : tarefas) {
-                        if (tarefa.getID() == excluirID) {
+                    if (tarefa.getID() == excluirID) {
                         
-                            tarefas.remove(tarefa);
+                        TarefaServico.remover(tarefas, tarefa);
                             
-                            System.out.println("Tarefa excluida com sucesso!");
-                        }
-                        else {
-                            System.out.println("Tarefa não encontrada.");
-                        }
-                    }
+                        System.out.println("Tarefa excluida com sucesso!");
+                        removida = true;
+                        break;
+                    }  
+                }
+                
+                if(!removida) System.out.println("Tarefa não encontrada.");
+                
                 break;
             
             case 5:
