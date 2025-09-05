@@ -13,8 +13,6 @@ import java.time.LocalDate;
 
 public class Tarefa {
 
-private long id;
-  
     private long id;
     private String titulo;
     private String descricao;
@@ -23,11 +21,11 @@ private long id;
     private LocalDate dataConclusao;
     
     public Tarefa(long id, String titulo, String descricao, boolean completa, LocalDate dataAgora) {
-        this.Id = id;
-        this.Titulo = titulo;
-        this.Descricao = descricao;
-        this.Completa = false;
-        this.DataAgora = dataAgora;
+        this.id = id;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.completa = false;
+        this.dataAgora = dataAgora;
         this.dataConclusao = null;
     }
     
@@ -36,7 +34,7 @@ private long id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.completa = false;
-        this.dataCriacao = LocalDate.now();
+        this.dataAgora = LocalDate.now();
         this.dataConclusao = null;
     }
     /* so para teste */
@@ -62,14 +60,6 @@ private long id;
     
     public LocalDate getDataConclusao() {
     	return dataConclusao;
-    }
-    
-    public String getListarTarefa(String titulo, String descricao) {
-        this(titulo, descricao);
-    }
-
-    public void completar(boolean Completa){
-        this.Completa = true;
     }
     
     public void setID(long id) {
@@ -99,9 +89,5 @@ private long id;
     	} else {
     		this.dataConclusao = null;
     	}
-    }
-    
-    public void completar() {
-    	setCompletar = true;
     }
 }
