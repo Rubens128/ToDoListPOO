@@ -31,7 +31,7 @@ private long id;
         this.dataConclusao = null;
     }
     
-    public Tarefa(String titulo, String descricao) {
+    public Tarefa(String titulo, String descricao, long id) {
         this.id = 0;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -39,6 +39,16 @@ private long id;
         this.dataCriacao = LocalDate.now();
         this.dataConclusao = null;
     }
+
+    public Tarefa(String titulo, String descricao, long id, LocalDate dataAgora) {
+        this.id = 0;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.completa = false;
+        this.dataCriacao = LocalDate.now();
+        this.dataConclusao = null;
+    }
+
     /* so para teste */
     public long getID() {
         return id;
@@ -52,7 +62,7 @@ private long id;
     	return descricao;
     }
     
-    public boolean getComplete() {
+    public boolean isComplete() {
     	return completa;
     }
     
